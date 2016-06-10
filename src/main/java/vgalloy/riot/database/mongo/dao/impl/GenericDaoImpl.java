@@ -18,12 +18,13 @@ public class GenericDaoImpl<T extends Identifiable> implements GenericDao<T> {
     /**
      * Constructor with the collectionFactory.
      *
+     * @param databaseUrl the database url
      * @param databaseName   the database name
      * @param collectionName The collection name;
      * @param clazz          the class type
      */
-    public GenericDaoImpl(String databaseName, String collectionName, Class<T> clazz) {
-        MongoClient mongoClient = new MongoClient("localhost");
+    public GenericDaoImpl(String databaseUrl, String databaseName, String collectionName, Class<T> clazz) {
+        MongoClient mongoClient = new MongoClient(databaseUrl);
         DB mongoDatabase = mongoClient.getDB(databaseName);
         DBCollection dbCollection = mongoDatabase.getCollection(collectionName);
         collection = JacksonDBCollection.wrap(dbCollection, clazz, String.class);

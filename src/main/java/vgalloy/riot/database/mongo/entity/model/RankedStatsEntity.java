@@ -1,6 +1,7 @@
 package vgalloy.riot.database.mongo.entity.model;
 
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
+import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import org.mongojack.Id;
 
 import vgalloy.riot.api.rest.constant.Region;
@@ -13,13 +14,13 @@ import vgalloy.riot.database.mongo.entity.Key;
  * @author Vincent Galloy
  *         Created by Vincent Galloy on 28/05/16.
  */
-@JsonAutoDetect(fieldVisibility = JsonAutoDetect.Visibility.NONE, getterVisibility = JsonAutoDetect.Visibility.ANY, setterVisibility = JsonAutoDetect.Visibility.ANY)
+@JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.ANY)
 public class RankedStatsEntity extends Datable<RankedStatsDto> implements Identifiable {
 
     private Key key;
 
     /**
-     * Constructor.
+     * Constructor. For Jackson deserialization.
      */
     private RankedStatsEntity() {
         super(new RankedStatsDto());

@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
  */
 public class RankedStatsDaoImplTest {
 
-    private final RankedStatsDaoImpl rankedStatsDao = RankedStatsDaoFactory.getRankedStatsDao("riotTest");
+    private final RankedStatsDaoImpl rankedStatsDao = RankedStatsDaoFactory.getRankedStatsDao("localhost", "riotTest");
 
     @Test
     public void testNullRegion() {

@@ -16,14 +16,15 @@ public class RankedStatsDaoFactory {
     /**
      * Return the RankedStatsDao with the correct database.
      *
-     * @param dbName the database name
+     * @param databaseUrl the database url
+     * @param databaseName the database name
      * @return the rankedStatsDao
      */
-    public static RankedStatsDaoImpl getRankedStatsDao(String dbName) {
-        RankedStatsDaoImpl rankedStatsDao = RANKED_STATS_DAO_MAP.get(dbName);
+    public static RankedStatsDaoImpl getRankedStatsDao(String databaseUrl, String databaseName) {
+        RankedStatsDaoImpl rankedStatsDao = RANKED_STATS_DAO_MAP.get(databaseName);
         if (rankedStatsDao == null) {
-            rankedStatsDao = new RankedStatsDaoImpl(dbName);
-            RANKED_STATS_DAO_MAP.put(dbName, rankedStatsDao);
+            rankedStatsDao = new RankedStatsDaoImpl(databaseUrl, databaseName);
+            RANKED_STATS_DAO_MAP.put(databaseName, rankedStatsDao);
         }
         return rankedStatsDao;
     }

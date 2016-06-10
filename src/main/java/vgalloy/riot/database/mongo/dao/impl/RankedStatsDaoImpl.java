@@ -24,10 +24,11 @@ public class RankedStatsDaoImpl {
     /**
      * Constructor.
      *
+     * @param databaseUrl the database url
      * @param databaseName the database name
      */
-    public RankedStatsDaoImpl(String databaseName) {
-        genericDao = new GenericDaoImpl<>(databaseName, "rankedStats", RankedStatsEntity.class);
+    public RankedStatsDaoImpl(String databaseUrl, String databaseName) {
+        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, "rankedStats", RankedStatsEntity.class);
     }
 
     /**

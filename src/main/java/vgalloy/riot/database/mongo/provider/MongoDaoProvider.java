@@ -10,7 +10,13 @@ import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
 public enum MongoDaoProvider {
     INSTANCE;
 
-    public RankedStatsDaoImpl getRankedStatsDao() {
-        return RankedStatsDaoFactory.getRankedStatsDao("riot2");
+    /**
+     * Get the rankedStatsDaoImpl.
+     *
+     * @param databaseUrl the database url
+     * @return the rankedStatsDaoImpl
+     */
+    public RankedStatsDaoImpl getRankedStatsDao(String databaseUrl) {
+        return RankedStatsDaoFactory.getRankedStatsDao(databaseUrl, "riot2");
     }
 }
