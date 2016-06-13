@@ -1,6 +1,8 @@
 package vgalloy.riot.database.mongo.provider;
 
+import vgalloy.riot.database.mongo.dao.factory.MatchDetailDaoFactory;
 import vgalloy.riot.database.mongo.dao.factory.RankedStatsDaoFactory;
+import vgalloy.riot.database.mongo.dao.impl.MatchDetailDaoImpl;
 import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
 
 /**
@@ -18,5 +20,15 @@ public enum MongoDaoProvider {
      */
     public RankedStatsDaoImpl getRankedStatsDao(String databaseUrl) {
         return RankedStatsDaoFactory.getRankedStatsDao(databaseUrl, "riot2");
+    }
+
+    /**
+     * Get the matchDetailDaoImpl.
+     *
+     * @param databaseUrl the database url
+     * @return the matchDetailDaoImpl
+     */
+    public MatchDetailDaoImpl getMatchDetailDao(String databaseUrl) {
+        return MatchDetailDaoFactory.getMatchDetailDao(databaseUrl, "riot2");
     }
 }

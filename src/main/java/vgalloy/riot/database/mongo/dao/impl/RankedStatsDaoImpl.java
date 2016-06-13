@@ -24,7 +24,7 @@ public class RankedStatsDaoImpl {
     /**
      * Constructor.
      *
-     * @param databaseUrl the database url
+     * @param databaseUrl  the database url
      * @param databaseName the database name
      */
     public RankedStatsDaoImpl(String databaseUrl, String databaseName) {
