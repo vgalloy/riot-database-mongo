@@ -34,6 +34,7 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public Map<Integer, Double> getWinRate(int championId) {
+        updateWinRate();
         Map<Integer, Double> map = new HashMap<>();
         FindIterable<Document> result = mongoDatabase.getCollection("result").find(new Document("_id.championId", championId));
         int index = 0;
