@@ -9,9 +9,9 @@ import java.util.Map;
  * @author Vincent Galloy
  *         Created by Vincent Galloy on 09/06/16.
  */
-public class MatchDetailDaoFactory {
+public final class MatchDetailDaoFactory {
 
-    private static final Map<String, MatchDetailDaoImpl> MATCH_DETAIL_DAO_MAP = new HashMap<>();
+    private static final Map<String, Map<String, MatchDetailDaoImpl>> MATCH_DETAIL_DAO_MAP = new HashMap<>();
 
     /**
      * Return the MatchDetailDaoImpl with the correct database.
@@ -21,10 +21,15 @@ public class MatchDetailDaoFactory {
      * @return the matchDetailDao
      */
     public static MatchDetailDaoImpl getDao(String databaseUrl, String databaseName) {
-        MatchDetailDaoImpl matchDetailDao = MATCH_DETAIL_DAO_MAP.get(databaseName);
+        Map<String, MatchDetailDaoImpl> databaseUrlMap = MATCH_DETAIL_DAO_MAP.get(databaseUrl);
+        if (databaseUrlMap == null) {
+            databaseUrlMap = new HashMap<>();
+            MATCH_DETAIL_DAO_MAP.put(databaseUrl, databaseUrlMap);
+        }
+        MatchDetailDaoImpl matchDetailDao = databaseUrlMap.get(databaseName);
         if (matchDetailDao == null) {
             matchDetailDao = new MatchDetailDaoImpl(databaseUrl, databaseName);
-            MATCH_DETAIL_DAO_MAP.put(databaseName, matchDetailDao);
+            databaseUrlMap.put(databaseName, matchDetailDao);
         }
         return matchDetailDao;
     }

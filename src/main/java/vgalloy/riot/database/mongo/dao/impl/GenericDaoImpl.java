@@ -5,6 +5,7 @@ import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import org.mongojack.JacksonDBCollection;
 import vgalloy.riot.database.mongo.dao.GenericDao;
+import vgalloy.riot.database.mongo.dao.factory.MongoClientFactory;
 import vgalloy.riot.database.mongo.entity.Identifiable;
 
 /**
@@ -24,7 +25,7 @@ public class GenericDaoImpl<T extends Identifiable> implements GenericDao<T> {
      * @param clazz          the class type
      */
     public GenericDaoImpl(String databaseUrl, String databaseName, String collectionName, Class<T> clazz) {
-        MongoClient mongoClient = new MongoClient(databaseUrl);
+        MongoClient mongoClient = MongoClientFactory.get(databaseUrl);
         DB mongoDatabase = mongoClient.getDB(databaseName);
         DBCollection dbCollection = mongoDatabase.getCollection(collectionName);
         collection = JacksonDBCollection.wrap(dbCollection, clazz, String.class);
