@@ -20,7 +20,7 @@ public class MatchDetailDaoFactory {
      * @param databaseName the database name
      * @return the matchDetailDao
      */
-    public static MatchDetailDaoImpl getMatchDetailDao(String databaseUrl, String databaseName) {
+    public static MatchDetailDaoImpl getDao(String databaseUrl, String databaseName) {
         MatchDetailDaoImpl matchDetailDao = MATCH_DETAIL_DAO_MAP.get(databaseName);
         if (matchDetailDao == null) {
             matchDetailDao = new MatchDetailDaoImpl(databaseUrl, databaseName);

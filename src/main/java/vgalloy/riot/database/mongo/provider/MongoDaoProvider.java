@@ -19,7 +19,7 @@ public enum MongoDaoProvider {
      * @return the rankedStatsDaoImpl
      */
     public RankedStatsDaoImpl getRankedStatsDao(String databaseUrl) {
-        return RankedStatsDaoFactory.getRankedStatsDao(databaseUrl, "riot2");
+        return RankedStatsDaoFactory.getDao(databaseUrl, "riot2");
     }
 
     /**
@@ -29,6 +29,6 @@ public enum MongoDaoProvider {
      * @return the matchDetailDaoImpl
      */
     public MatchDetailDaoImpl getMatchDetailDao(String databaseUrl) {
-        return MatchDetailDaoFactory.getMatchDetailDao(databaseUrl, "riot2");
+        return MatchDetailDaoFactory.getDao(databaseUrl, "riot2");
     }
 }

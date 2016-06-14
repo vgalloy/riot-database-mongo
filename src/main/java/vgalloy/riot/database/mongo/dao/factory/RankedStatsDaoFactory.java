@@ -20,7 +20,7 @@ public class RankedStatsDaoFactory {
      * @param databaseName the database name
      * @return the rankedStatsDao
      */
-    public static RankedStatsDaoImpl getRankedStatsDao(String databaseUrl, String databaseName) {
+    public static RankedStatsDaoImpl getDao(String databaseUrl, String databaseName) {
         RankedStatsDaoImpl rankedStatsDao = RANKED_STATS_DAO_MAP.get(databaseName);
         if (rankedStatsDao == null) {
             rankedStatsDao = new RankedStatsDaoImpl(databaseUrl, databaseName);
