@@ -1,10 +1,16 @@
 package vgalloy.riot.database.mongo.dao.impl;
 
-import java.util.ArrayList;
-import java.util.Optional;
-
+import de.flapdoodle.embed.mongo.MongodExecutable;
+import de.flapdoodle.embed.mongo.MongodProcess;
+import de.flapdoodle.embed.mongo.MongodStarter;
+import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
+import de.flapdoodle.embed.mongo.config.Net;
+import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.mongo.distribution.Version.Main;
+import de.flapdoodle.embed.process.runtime.Network;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
-
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.ChampionStatsDto;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
@@ -12,6 +18,10 @@ import vgalloy.riot.database.mongo.dao.factory.RankedStatsDaoFactory;
 import vgalloy.riot.database.mongo.entity.Datable;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -25,7 +35,23 @@ import static org.junit.Assert.fail;
  */
 public class RankedStatsDaoImplTest {
 
-    private final RankedStatsDaoImpl rankedStatsDao = RankedStatsDaoFactory.getDao("localhost", "riotTest");
+    private static final int PORT = 29004;
+    private static final String URL = "localhost";
+
+    private static MongodProcess PROCESS;
+    private static MongodExecutable EXECUTABLE;
+
+    private final RankedStatsDaoImpl rankedStatsDao = RankedStatsDaoFactory.getDao(URL + ":" + PORT, "riotTest");
+
+    @BeforeClass
+    public static void setUp() throws IOException {
+        MongodStarter starter = MongodStarter.getDefaultInstance();
+        EXECUTABLE = starter.prepare(new MongodConfigBuilder()
+                .version(Main.PRODUCTION)
+                .net(new Net(PORT, Network.localhostIsIPv6()))
+                .build());
+        PROCESS = EXECUTABLE.start();
+    }
 
     @Test
     public void testNullRegion() {
@@ -131,5 +157,11 @@ public class RankedStatsDaoImplTest {
         assertTrue(result.isPresent());
         System.out.printf(result.get().toString());
         assertEquals(rankedStatsDto, result.get().getItem());
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        PROCESS.stop();
+        EXECUTABLE.stop();
     }
 }

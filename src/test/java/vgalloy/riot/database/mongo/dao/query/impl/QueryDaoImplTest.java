@@ -1,5 +1,6 @@
 package vgalloy.riot.database.mongo.dao.query.impl;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 /**
@@ -9,6 +10,7 @@ import org.junit.Test;
 public class QueryDaoImplTest {
 
     @Test
+    @Ignore
     public void test() {
         new QueryDaoImpl("localhost:28001", "riot2").updateWinRate();
         System.out.println(new QueryDaoImpl("localhost:28001", "riot2").getWinRate(7));

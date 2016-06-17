@@ -48,6 +48,12 @@
             <version>${logback-classic.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>de.flapdoodle.embed</groupId>
+            <artifactId>de.flapdoodle.embed.mongo</artifactId>
+            <version>1.50.5</version>
+        </dependency>
+
         <!-- Database api -->
         <dependency>
             <groupId>vgalloy</groupId>
