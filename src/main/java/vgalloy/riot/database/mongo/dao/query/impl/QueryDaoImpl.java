@@ -1,15 +1,16 @@
 package vgalloy.riot.database.mongo.dao.query.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
+
 import vgalloy.riot.database.mongo.dao.factory.MongoClientFactory;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import static java.util.Arrays.asList;
 
@@ -34,7 +35,6 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public Map<Integer, Double> getWinRate(int championId) {
-        updateWinRate();
         Map<Integer, Double> map = new HashMap<>();
         FindIterable<Document> result = mongoDatabase.getCollection("result").find(new Document("_id.championId", championId));
         int index = 0;
@@ -42,7 +42,6 @@ public class QueryDaoImpl implements QueryDao {
             map.put(index, Math.floor(1000 * o.getDouble("result")) / 10);
             index++;
         }
-
         return map;
     }
 
