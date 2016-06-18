@@ -57,7 +57,6 @@ public class QueryDaoImpl implements QueryDao {
                 ),
                 new BasicDBObject("$project", new Document("result", new Document("$divide", new String[]{"$won", "$played"})).append("total", 1)),
                 new BasicDBObject("$sort", new Document("_id", 1)),
-                new BasicDBObject("$match", new Document("_id.championId", 7)),
                 new BasicDBObject("$out", "result")
         )).iterator();
     }
