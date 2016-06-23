@@ -5,7 +5,6 @@ import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.mongo.distribution.Version.Main;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.junit.AfterClass;
@@ -13,6 +12,7 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.mach.dto.MatchDetail;
+import vgalloy.riot.database.mongo.dao.MatchDetailDao;
 import vgalloy.riot.database.mongo.dao.factory.MatchDetailDaoFactory;
 import vgalloy.riot.database.mongo.entity.model.MatchDetailEntity;
 
@@ -34,7 +34,7 @@ public class MatchDetailDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final MatchDetailDaoImpl matchDetailDao = MatchDetailDaoFactory.getDao(URL + ":" + PORT, "riotTest");
+    private final MatchDetailDao matchDetailDao = MatchDetailDaoFactory.getDao(URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {

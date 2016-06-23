@@ -5,7 +5,6 @@ import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
-import de.flapdoodle.embed.mongo.distribution.Version;
 import de.flapdoodle.embed.mongo.distribution.Version.Main;
 import de.flapdoodle.embed.process.runtime.Network;
 import org.junit.AfterClass;
@@ -14,6 +13,7 @@ import org.junit.Test;
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.ChampionStatsDto;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
+import vgalloy.riot.database.mongo.dao.RankedStatsDao;
 import vgalloy.riot.database.mongo.dao.factory.RankedStatsDaoFactory;
 import vgalloy.riot.database.mongo.entity.Datable;
 import vgalloy.riot.database.mongo.entity.Key;
@@ -41,7 +41,7 @@ public class RankedStatsDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final RankedStatsDaoImpl rankedStatsDao = RankedStatsDaoFactory.getDao(URL + ":" + PORT, "riotTest");
+    private final RankedStatsDao rankedStatsDao = RankedStatsDaoFactory.getDao(URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {

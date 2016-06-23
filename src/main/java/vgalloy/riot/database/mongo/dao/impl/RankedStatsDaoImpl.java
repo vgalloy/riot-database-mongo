@@ -4,6 +4,7 @@ import org.mongojack.DBQuery;
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
 import vgalloy.riot.database.mongo.dao.GenericDao;
+import vgalloy.riot.database.mongo.dao.RankedStatsDao;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
 
@@ -16,7 +17,7 @@ import java.util.Random;
  * @author Vincent Galloy
  *         Created by Vincent Galloy on 28/05/16.
  */
-public class RankedStatsDaoImpl {
+public class RankedStatsDaoImpl implements RankedStatsDao {
 
     public static final String REGION_CAN_NOT_BE_NULL = "region can not be null";
     private final GenericDao<RankedStatsEntity> genericDao;

@@ -5,6 +5,7 @@ import com.mongodb.MongoClient;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
+import java.util.Optional;
 
 /**
  * @author Vincent Galloy
@@ -23,10 +24,8 @@ public class MongoClientFactory {
     public static MongoClient get(String databaseUrl) {
         Objects.requireNonNull(databaseUrl, "database url can not be null");
         MongoClient mongoClient = MONGO_CLIENT_MAP.get(databaseUrl);
-        if (mongoClient == null) {
-            mongoClient = new MongoClient(databaseUrl);
-            MONGO_CLIENT_MAP.put(databaseUrl, mongoClient);
-        }
+        mongoClient = Optional.ofNullable(mongoClient).orElse(new MongoClient(databaseUrl));
+        MONGO_CLIENT_MAP.put(databaseUrl, mongoClient);
         return mongoClient;
     }
 }
