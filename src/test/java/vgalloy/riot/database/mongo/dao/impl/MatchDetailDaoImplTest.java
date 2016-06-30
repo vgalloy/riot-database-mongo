@@ -13,7 +13,7 @@ import org.junit.Test;
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.mach.dto.MatchDetail;
 import vgalloy.riot.database.mongo.dao.MatchDetailDao;
-import vgalloy.riot.database.mongo.dao.factory.MatchDetailDaoFactory;
+import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
 import vgalloy.riot.database.mongo.entity.model.MatchDetailEntity;
 
 import java.io.IOException;
@@ -34,7 +34,7 @@ public class MatchDetailDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final MatchDetailDao matchDetailDao = MatchDetailDaoFactory.getDao(URL + ":" + PORT, "riotTest");
+    private final MatchDetailDao matchDetailDao = DaoFactory.getDao(MatchDetailDaoImpl.class, URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {

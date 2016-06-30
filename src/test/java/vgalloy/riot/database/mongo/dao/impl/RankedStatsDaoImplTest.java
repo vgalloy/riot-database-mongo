@@ -14,7 +14,7 @@ import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.ChampionStatsDto;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
 import vgalloy.riot.database.mongo.dao.RankedStatsDao;
-import vgalloy.riot.database.mongo.dao.factory.RankedStatsDaoFactory;
+import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
 import vgalloy.riot.database.mongo.entity.Datable;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
@@ -41,7 +41,7 @@ public class RankedStatsDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final RankedStatsDao rankedStatsDao = RankedStatsDaoFactory.getDao(URL + ":" + PORT, "riotTest");
+    private final RankedStatsDao rankedStatsDao = DaoFactory.getDao(RankedStatsDaoImpl.class, URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {

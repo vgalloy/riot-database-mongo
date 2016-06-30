@@ -2,8 +2,9 @@ package vgalloy.riot.database.mongo.provider;
 
 import vgalloy.riot.database.mongo.dao.MatchDetailDao;
 import vgalloy.riot.database.mongo.dao.RankedStatsDao;
-import vgalloy.riot.database.mongo.dao.factory.MatchDetailDaoFactory;
-import vgalloy.riot.database.mongo.dao.factory.RankedStatsDaoFactory;
+import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
+import vgalloy.riot.database.mongo.dao.impl.MatchDetailDaoImpl;
+import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
 import vgalloy.riot.database.mongo.dao.query.impl.QueryDaoImpl;
 
@@ -21,7 +22,7 @@ public enum MongoDaoProvider {
      * @return the rankedStatsDao
      */
     public RankedStatsDao getRankedStatsDao(String databaseUrl) {
-        return RankedStatsDaoFactory.getDao(databaseUrl, "riot2");
+        return DaoFactory.getDao(RankedStatsDaoImpl.class, databaseUrl, "riot2");
     }
 
     /**
@@ -31,7 +32,7 @@ public enum MongoDaoProvider {
      * @return the matchDetailDao
      */
     public MatchDetailDao getMatchDetailDao(String databaseUrl) {
-        return MatchDetailDaoFactory.getDao(databaseUrl, "riot2");
+        return DaoFactory.getDao(MatchDetailDaoImpl.class, databaseUrl, "riot2");
     }
 
     /**
@@ -41,6 +42,6 @@ public enum MongoDaoProvider {
      * @return the queryDao
      */
     public QueryDao getQueryDao(String databaseUrl) {
-        return new QueryDaoImpl(databaseUrl, "riot2");
+        return DaoFactory.getDao(QueryDaoImpl.class, databaseUrl, "riot2");
     }
 }
