@@ -33,7 +33,7 @@
         <de.flapdoodle.embed.mongo.version>1.50.5</de.flapdoodle.embed.mongo.version>
 
         <!-- Riot project -->
-        <riot-api-java.version>2.2.0</riot-api-java.version>
+        <riot-api-java.version>2.3.0</riot-api-java.version>
     </properties>
 
     <dependencies>
