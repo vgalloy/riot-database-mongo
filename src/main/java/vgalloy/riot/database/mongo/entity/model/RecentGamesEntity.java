@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import org.mongojack.Id;
 import vgalloy.riot.api.rest.constant.Region;
-import vgalloy.riot.api.rest.request.summoner.dto.SummonerDto;
+import vgalloy.riot.api.rest.request.game.dto.RecentGamesDto;
 import vgalloy.riot.database.mongo.entity.Datable;
 import vgalloy.riot.database.mongo.entity.Identifiable;
 import vgalloy.riot.database.mongo.entity.Key;
@@ -14,26 +14,26 @@ import vgalloy.riot.database.mongo.entity.Key;
  *         Created by Vincent Galloy on 28/05/16.
  */
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.ANY)
-public class SummonerEntity extends Datable<SummonerDto> implements Identifiable {
+public class RecentGamesEntity extends Datable<RecentGamesDto> implements Identifiable {
 
     private Key key;
 
     /**
      * Constructor. For Jackson deserialization.
      */
-    private SummonerEntity() {
-        super(new SummonerDto());
+    private RecentGamesEntity() {
+        super(new RecentGamesDto());
     }
 
     /**
      * Constructor.
      *
-     * @param region      thr region
-     * @param summonerDto the summoner dto
+     * @param region         thr region
+     * @param recentGamesDto the recent game dto
      */
-    public SummonerEntity(Region region, SummonerDto summonerDto) {
-        super(summonerDto);
-        key = new Key(region, summonerDto.getId());
+    public RecentGamesEntity(Region region, RecentGamesDto recentGamesDto) {
+        super(recentGamesDto);
+        key = new Key(region, recentGamesDto.getSummonerId());
     }
 
     @Id
@@ -67,7 +67,7 @@ public class SummonerEntity extends Datable<SummonerDto> implements Identifiable
 
     @Override
     public String toString() {
-        return "RankedStatsEntity{" +
+        return "MatchDetailEntity{" +
                 "key=" + key +
                 ", item=" + item +
                 ", lastUpdate" + lastUpdate +

@@ -1,6 +1,9 @@
 package vgalloy.riot.database.mongo.dao;
 
+import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.database.mongo.entity.Identifiable;
+
+import java.util.Optional;
 
 /**
  * @author Vincent Galloy
@@ -23,4 +26,12 @@ public interface GenericDao<T extends Identifiable> {
      * @return The modify object
      */
     T update(T t);
+
+    /**
+     * Get one random element in the collection.
+     *
+     * @param region the region
+     * @return the random element
+     */
+    Optional<T> getRandom(Region region);
 }

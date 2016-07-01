@@ -35,7 +35,7 @@ import static org.junit.Assert.fail;
  */
 public class RankedStatsDaoImplTest {
 
-    private static final int PORT = 29004;
+    private static final int PORT = 29002;
     private static final String URL = "localhost";
 
     private static MongodProcess PROCESS;
@@ -77,7 +77,7 @@ public class RankedStatsDaoImplTest {
             fail("No exception");
         } catch (Exception e) {
             assertSame(NullPointerException.class, e.getClass());
-            assertEquals(RankedStatsDaoImpl.REGION_CAN_NOT_BE_NULL, e.getMessage());
+            assertEquals(GenericDaoImpl.REGION_CAN_NOT_BE_NULL, e.getMessage());
         }
     }
 

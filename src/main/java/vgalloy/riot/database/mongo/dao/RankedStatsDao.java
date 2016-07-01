@@ -30,10 +30,10 @@ public interface RankedStatsDao {
     Optional<RankedStatsEntity> get(Region region, long summonerId);
 
     /**
-     * Get one random.
+     * Get one random element in the collection.
      *
      * @param region the region
-     * @return the rand
+     * @return the random element
      */
     Optional<RankedStatsEntity> getRandom(Region region);
 }

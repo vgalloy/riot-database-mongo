@@ -30,10 +30,10 @@ public interface SummonerDao {
     Optional<SummonerEntity> get(Region region, long summonerId);
 
     /**
-     * Get one random.
+     * Get one random element in the collection.
      *
      * @param region the region
-     * @return the rand
+     * @return the random element
      */
     Optional<SummonerEntity> getRandom(Region region);
 }

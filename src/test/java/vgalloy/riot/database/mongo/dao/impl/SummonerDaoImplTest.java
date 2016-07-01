@@ -9,7 +9,9 @@ import de.flapdoodle.embed.mongo.MongodStarter;
 import de.flapdoodle.embed.mongo.config.MongodConfigBuilder;
 import de.flapdoodle.embed.mongo.config.Net;
 import de.flapdoodle.embed.mongo.distribution.Version;
+import de.flapdoodle.embed.mongo.distribution.Version.Main;
 import de.flapdoodle.embed.process.runtime.Network;
+import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -29,7 +31,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class SummonerDaoImplTest {
 
-    private static final int PORT = 29005;
+    private static final int PORT = 29004;
     private static final String URL = "localhost";
 
     private static MongodProcess PROCESS;
@@ -41,7 +43,7 @@ public class SummonerDaoImplTest {
     public static void setUp() throws IOException {
         MongodStarter starter = MongodStarter.getDefaultInstance();
         EXECUTABLE = starter.prepare(new MongodConfigBuilder()
-                .version(Version.Main.PRODUCTION)
+                .version(Main.PRODUCTION)
                 .net(new Net(PORT, Network.localhostIsIPv6()))
                 .build());
         PROCESS = EXECUTABLE.start();
@@ -69,5 +71,11 @@ public class SummonerDaoImplTest {
         // THEN
         assertTrue(result.isPresent());
         assertEquals(summoner, result.get().getItem());
+    }
+
+    @AfterClass
+    public static void tearDown() {
+        PROCESS.stop();
+        EXECUTABLE.stop();
     }
 }

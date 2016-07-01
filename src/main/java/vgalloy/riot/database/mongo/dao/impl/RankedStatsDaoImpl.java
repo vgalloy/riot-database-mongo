@@ -1,6 +1,5 @@
 package vgalloy.riot.database.mongo.dao.impl;
 
-import org.mongojack.DBQuery;
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
 import vgalloy.riot.database.mongo.dao.GenericDao;
@@ -8,10 +7,7 @@ import vgalloy.riot.database.mongo.dao.RankedStatsDao;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
 
-import java.security.SecureRandom;
-import java.util.Objects;
 import java.util.Optional;
-import java.util.Random;
 
 /**
  * @author Vincent Galloy
@@ -19,7 +15,6 @@ import java.util.Random;
  */
 public class RankedStatsDaoImpl implements RankedStatsDao {
 
-    public static final String REGION_CAN_NOT_BE_NULL = "region can not be null";
     private final GenericDao<RankedStatsEntity> genericDao;
 
     /**
@@ -61,19 +56,6 @@ public class RankedStatsDaoImpl implements RankedStatsDao {
      * @return the rand
      */
     public Optional<RankedStatsEntity> getRandom(Region region) {
-        Objects.requireNonNull(region, REGION_CAN_NOT_BE_NULL);
-        int max = ((GenericDaoImpl<RankedStatsEntity>) genericDao).getCollection()
-                .find(DBQuery.is("region", region))
-                .count();
-        if (max == 0) {
-            return Optional.empty();
-        }
-        Random random = new SecureRandom();
-        int rand = Math.abs(random.nextInt()) % max;
-        return Optional.of(((GenericDaoImpl<RankedStatsEntity>) genericDao).getCollection()
-                .find(DBQuery.is("region", region))
-                .limit(-1)
-                .skip(rand)
-                .next());
+        return genericDao.getRandom(region);
     }
 }
