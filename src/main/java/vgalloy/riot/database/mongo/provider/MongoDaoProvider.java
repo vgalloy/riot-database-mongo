@@ -1,11 +1,13 @@
 package vgalloy.riot.database.mongo.provider;
 
 import vgalloy.riot.database.mongo.dao.MatchDetailDao;
+import vgalloy.riot.database.mongo.dao.MatchReferenceDao;
 import vgalloy.riot.database.mongo.dao.RankedStatsDao;
 import vgalloy.riot.database.mongo.dao.RecentGamesDao;
 import vgalloy.riot.database.mongo.dao.SummonerDao;
 import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
 import vgalloy.riot.database.mongo.dao.impl.MatchDetailDaoImpl;
+import vgalloy.riot.database.mongo.dao.impl.MatchReferenceDaoImpl;
 import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
 import vgalloy.riot.database.mongo.dao.impl.RecentGamesDaoImpl;
 import vgalloy.riot.database.mongo.dao.impl.SummonerDaoImpl;
@@ -27,6 +29,16 @@ public enum MongoDaoProvider {
      */
     public MatchDetailDao getMatchDetailDao(String databaseUrl) {
         return DaoFactory.getDao(MatchDetailDaoImpl.class, databaseUrl, "riot2");
+    }
+
+    /**
+     * Get the MatchReferenceDao.
+     *
+     * @param databaseUrl the database url
+     * @return the matchReferenceDao
+     */
+    public MatchReferenceDao getMatchReferenceDao(String databaseUrl) {
+        return DaoFactory.getDao(MatchReferenceDaoImpl.class, databaseUrl, "riot2");
     }
 
     /**
