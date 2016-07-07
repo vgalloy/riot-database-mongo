@@ -1,5 +1,9 @@
 package vgalloy.riot.database.mongo.dao.impl;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Optional;
+
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
 import de.flapdoodle.embed.mongo.MongodStarter;
@@ -10,18 +14,15 @@ import de.flapdoodle.embed.process.runtime.Network;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.ChampionStatsDto;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
 import vgalloy.riot.database.mongo.dao.RankedStatsDao;
+import vgalloy.riot.database.mongo.dao.exception.DaoException;
 import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
-import vgalloy.riot.database.mongo.entity.Datable;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.entity.model.RankedStatsEntity;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Optional;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -93,8 +94,8 @@ public class RankedStatsDaoImplTest {
             rankedStatsDao.save(Region.jp, null);
             fail("No exception");
         } catch (Exception e) {
-            assertSame(NullPointerException.class, e.getClass());
-            assertEquals(Datable.CAN_NOT_BUILD_A_DATABLE_WITH_A_NULL_ITEM, e.getMessage());
+            assertSame(DaoException.class, e.getClass());
+            assertEquals(DaoException.UNABLE_TO_SAVE_THE_DTO, e.getMessage());
         }
     }
 
@@ -105,8 +106,8 @@ public class RankedStatsDaoImplTest {
             rankedStatsDao.save(Region.euw, rankedStatsDto);
             fail("No exception");
         } catch (Exception e) {
-            assertSame(NullPointerException.class, e.getClass());
-            assertEquals(Key.ID_CAN_NOT_BE_NULL, e.getMessage());
+            assertSame(DaoException.class, e.getClass());
+            assertEquals(DaoException.UNABLE_TO_SAVE_THE_DTO, e.getMessage());
         }
     }
 

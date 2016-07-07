@@ -1,19 +1,20 @@
 package vgalloy.riot.database.mongo.dao.impl;
 
+import java.security.SecureRandom;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Random;
+
 import com.mongodb.DB;
 import com.mongodb.DBCollection;
 import com.mongodb.MongoClient;
 import org.mongojack.DBQuery;
 import org.mongojack.JacksonDBCollection;
+
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.database.mongo.dao.GenericDao;
 import vgalloy.riot.database.mongo.dao.factory.MongoClientFactory;
 import vgalloy.riot.database.mongo.entity.Identifiable;
-
-import java.security.SecureRandom;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Random;
 
 /**
  * @author Vincent Galloy
@@ -66,9 +67,5 @@ public class GenericDaoImpl<T extends Identifiable> implements GenericDao<T> {
                 .limit(-1)
                 .skip(rand)
                 .next());
-    }
-
-    public JacksonDBCollection<T, String> getCollection() {
-        return collection;
     }
 }
