@@ -13,8 +13,8 @@ public class Key {
     public static final String REGION_CAN_NOT_BE_NULL = "region can not be null";
     public static final String ID_CAN_NOT_BE_NULL = "id can not be null or zero.";
 
-    private Region region;
-    private Long id;
+    private final Region region;
+    private final Long id;
 
     /**
      * Constructor.
