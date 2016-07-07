@@ -1,16 +1,21 @@
 package vgalloy.riot.database.mongo.dao.query.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
 import com.mongodb.BasicDBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.client.AggregateIterable;
 import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
-
 import vgalloy.riot.database.mongo.dao.factory.MongoClientFactory;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
+import vgalloy.riot.database.mongo.dao.query.mapper.PositionMapper;
+import vgalloy.riot.database.mongo.dao.query.model.Position;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 import static java.util.Arrays.asList;
 
@@ -57,6 +62,71 @@ public class QueryDaoImpl implements QueryDao {
                 new BasicDBObject("$project", new Document("result", new Document("$divide", new String[]{"$won", "$played"})).append("total", 1)),
                 new BasicDBObject("$sort", new Document("_id", 1)),
                 new BasicDBObject("$out", "winRate")
-        )).iterator();
+        )).iterator(); // TODO .first ?
+    }
+
+    @Override
+    public List<List<Position>> getPosition(long summonerId, int championId) {
+        AggregateIterable<Document> result = mongoDatabase.getCollection("positions").aggregate(asList(
+                new BasicDBObject("$match", new BasicDBObject("value.players.summonerId", summonerId)),
+                new BasicDBObject("$match", new BasicDBObject("value.players.championId", championId)),
+                new BasicDBObject("$unwind", "$value.players"),
+                new BasicDBObject("$match", new BasicDBObject("value.players.summonerId", summonerId)),
+                new BasicDBObject("$match", new BasicDBObject("value.players.championId", championId))
+        ));
+
+        List<List<Position>> positionResultList = new ArrayList<>();
+        for (Document document : result) {
+            Document game = (Document) document.get("value");
+            Document players = (Document) game.get("players");
+            List<Document> positionsAsDocument = (List<Document>) players.get("positions");
+            List<Position> positions = positionsAsDocument.stream().map(PositionMapper::map).collect(Collectors.toList());
+            positionResultList.add(positions);
+        }
+
+        return positionResultList;
+    }
+
+    @Override
+    public void updatePosition() {
+        String mapFunction = "function() {" +
+                "key = this._id;" +
+                "result = {};" +
+                "result.players = [];" +
+                "if(this.item.participantIdentities != undefined) {" +
+                "this.item.participantIdentities.forEach(function(participantIdentity) {" +
+                "identity = {};" +
+                "identity.summonerId = participantIdentity.player.summonerId;" +
+                "identity.participantId = participantIdentity.participantId;" +
+                "result.players[participantIdentity.participantId] = identity;" +
+                "});" +
+                "" +
+                "if(this.item.participants != undefined) {" +
+                "this.item.participants.forEach(function(participant) {" +
+                "result.players[participant.participantId].championId = participant.championId;" +
+                "});" +
+                "" +
+                "result.players.forEach(function(player) {" +
+                "player.positions = [];" +
+                "});" +
+                "if(this.item.timeline != undefined && this.item.timeline.frames != undefined) {" +
+                "this.item.timeline.frames.forEach(function(frame) {" +
+                "result.players.forEach(function(player) {" +
+                "position = frame.participantFrames[player.participantId].position;" +
+                "if(position != null) {" +
+                "player.positions.push(position);" +
+                "}" +
+                "});" +
+                "});" +
+                "emit(key, result);" +
+                "}" +
+                "}" +
+                "}" +
+                "};";
+        String reduceFunction = "function(key, values) {" +
+                "return result;" +
+                "};";
+        mongoDatabase.getCollection("matchDetail").mapReduce(mapFunction, reduceFunction)
+                .collectionName("positions").first();
     }
 }
