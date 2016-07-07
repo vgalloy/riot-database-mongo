@@ -53,8 +53,8 @@ public class MatchDetailDaoImplTest {
         matchDetail.setMatchId(10);
 
         // WHEN
-        matchDetailDao.save(Region.EUW, matchDetail);
-        Optional<MatchDetailEntity> result = matchDetailDao.get(Region.EUW, 10);
+        matchDetailDao.save(Region.euw, matchDetail);
+        Optional<MatchDetailEntity> result = matchDetailDao.get(Region.euw, 10);
 
         // THEN
         assertTrue(result.isPresent());

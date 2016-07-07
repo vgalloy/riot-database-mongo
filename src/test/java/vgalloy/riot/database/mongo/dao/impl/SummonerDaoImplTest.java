@@ -52,7 +52,7 @@ public class SummonerDaoImplTest {
     @Test
     public void testRandomFalse() {
         // WHEN
-        Optional<SummonerEntity> result = summonerDao.getRandom(Region.BR);
+        Optional<SummonerEntity> result = summonerDao.getRandom(Region.br);
 
         // THEN
         assertFalse(result.isPresent());
@@ -63,10 +63,10 @@ public class SummonerDaoImplTest {
         // GIVEN
         SummonerDto summoner = new SummonerDto();
         summoner.setId(2);
-        summonerDao.save(Region.EUW, summoner);
+        summonerDao.save(Region.euw, summoner);
 
         // WHEN
-        Optional<SummonerEntity> result = summonerDao.getRandom(Region.EUW);
+        Optional<SummonerEntity> result = summonerDao.getRandom(Region.euw);
 
         // THEN
         assertTrue(result.isPresent());

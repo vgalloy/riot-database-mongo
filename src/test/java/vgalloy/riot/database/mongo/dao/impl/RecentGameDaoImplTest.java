@@ -61,8 +61,8 @@ public class RecentGameDaoImplTest {
         recentGamesDto.setGames(gameDtoSet);
 
         // WHEN
-        recentGamesDao.save(Region.JP, recentGamesDto);
-        Optional<RecentGamesEntity> result = recentGamesDao.get(Region.JP, 19);
+        recentGamesDao.save(Region.jp, recentGamesDto);
+        Optional<RecentGamesEntity> result = recentGamesDao.get(Region.jp, 19);
 
         // THEN
         assertTrue(result.isPresent());

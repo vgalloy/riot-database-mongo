@@ -66,7 +66,7 @@ public class RankedStatsDaoImplTest {
 
     @Test
     public void testEmptyDatabase() {
-        Optional<RankedStatsEntity> rankedStatsEntity = rankedStatsDao.get(Region.BR, 1);
+        Optional<RankedStatsEntity> rankedStatsEntity = rankedStatsDao.get(Region.br, 1);
         assertFalse(rankedStatsEntity.isPresent());
     }
 
@@ -83,14 +83,14 @@ public class RankedStatsDaoImplTest {
 
     @Test
     public void testEmptyRandom() {
-        Optional<RankedStatsEntity> rankedStatsEntity = rankedStatsDao.getRandom(Region.KR);
+        Optional<RankedStatsEntity> rankedStatsEntity = rankedStatsDao.getRandom(Region.kr);
         assertFalse(rankedStatsEntity.isPresent());
     }
 
     @Test
     public void testInsertWithNullRankedStatsDto() {
         try {
-            rankedStatsDao.save(Region.JP, null);
+            rankedStatsDao.save(Region.jp, null);
             fail("No exception");
         } catch (Exception e) {
             assertSame(NullPointerException.class, e.getClass());
@@ -102,7 +102,7 @@ public class RankedStatsDaoImplTest {
     public void testInsertWithIncorrectRankedStatsDto() {
         RankedStatsDto rankedStatsDto = new RankedStatsDto();
         try {
-            rankedStatsDao.save(Region.EUW, rankedStatsDto);
+            rankedStatsDao.save(Region.euw, rankedStatsDto);
             fail("No exception");
         } catch (Exception e) {
             assertSame(NullPointerException.class, e.getClass());
@@ -117,8 +117,8 @@ public class RankedStatsDaoImplTest {
         rankedStatsDto.setSummonerId(10);
 
         // WHEN
-        rankedStatsDao.save(Region.EUW, rankedStatsDto);
-        Optional<RankedStatsEntity> result = rankedStatsDao.get(Region.EUW, 10);
+        rankedStatsDao.save(Region.euw, rankedStatsDto);
+        Optional<RankedStatsEntity> result = rankedStatsDao.get(Region.euw, 10);
 
         // THEN
         assertTrue(result.isPresent());
@@ -132,8 +132,8 @@ public class RankedStatsDaoImplTest {
         rankedStatsDto.setSummonerId(11);
 
         // WHEN
-        rankedStatsDao.save(Region.EUW, rankedStatsDto);
-        Optional<RankedStatsEntity> result = rankedStatsDao.getRandom(Region.EUW);
+        rankedStatsDao.save(Region.euw, rankedStatsDto);
+        Optional<RankedStatsEntity> result = rankedStatsDao.getRandom(Region.euw);
 
         // THEN
         assertTrue(result.isPresent());
@@ -150,8 +150,8 @@ public class RankedStatsDaoImplTest {
         rankedStatsDto.setSummonerId(12);
 
         // WHEN
-        rankedStatsDao.save(Region.EUW, rankedStatsDto);
-        Optional<RankedStatsEntity> result = rankedStatsDao.get(Region.EUW, 12);
+        rankedStatsDao.save(Region.euw, rankedStatsDto);
+        Optional<RankedStatsEntity> result = rankedStatsDao.get(Region.euw, 12);
 
         // THEN
         assertTrue(result.isPresent());

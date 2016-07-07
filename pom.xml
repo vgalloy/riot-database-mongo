@@ -33,7 +33,7 @@
         <de.flapdoodle.embed.mongo.version>1.50.5</de.flapdoodle.embed.mongo.version>
 
         <!-- Riot project -->
-        <riot-api-java.version>2.3.0</riot-api-java.version>
+        <riot-api-java.version>2.5.0</riot-api-java.version>
     </properties>
 
     <dependencies>
@@ -62,7 +62,7 @@
             <groupId>vgalloy</groupId>
             <artifactId>riot-api-java</artifactId>
             <version>${riot-api-java.version}</version>
-            <exclusions> <!-- TODO c'est moche -->
+            <exclusions>
                 <exclusion>
                     <groupId>org.glassfish.jersey.media</groupId>
                     <artifactId>jersey-media-json-jackson</artifactId>
