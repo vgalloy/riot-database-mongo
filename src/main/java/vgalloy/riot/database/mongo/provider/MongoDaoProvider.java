@@ -28,7 +28,7 @@ public enum MongoDaoProvider {
      * @return the matchDetailDao
      */
     public MatchDetailDao getMatchDetailDao(String databaseUrl) {
-        return DaoFactory.getDao(MatchDetailDaoImpl.class, databaseUrl, "riot2");
+        return DaoFactory.getDao(MatchDetailDaoImpl.class, databaseUrl, "riot");
     }
 
     /**
@@ -38,7 +38,7 @@ public enum MongoDaoProvider {
      * @return the matchReferenceDao
      */
     public MatchReferenceDao getMatchReferenceDao(String databaseUrl) {
-        return DaoFactory.getDao(MatchReferenceDaoImpl.class, databaseUrl, "riot2");
+        return DaoFactory.getDao(MatchReferenceDaoImpl.class, databaseUrl, "riot");
     }
 
     /**
@@ -48,7 +48,7 @@ public enum MongoDaoProvider {
      * @return the rankedStatsDao
      */
     public RankedStatsDao getRankedStatsDao(String databaseUrl) {
-        return DaoFactory.getDao(RankedStatsDaoImpl.class, databaseUrl, "riot2");
+        return DaoFactory.getDao(RankedStatsDaoImpl.class, databaseUrl, "riot");
     }
 
     /**
@@ -58,7 +58,7 @@ public enum MongoDaoProvider {
      * @return the RecentGamesDao
      */
     public RecentGamesDao getRecentGamesDao(String databaseUrl) {
-        return DaoFactory.getDao(RecentGamesDaoImpl.class, databaseUrl, "riot2");
+        return DaoFactory.getDao(RecentGamesDaoImpl.class, databaseUrl, "riot");
     }
 
     /**
@@ -68,7 +68,7 @@ public enum MongoDaoProvider {
      * @return the SummonerDao
      */
     public SummonerDao getSummonerDao(String databaseUrl) {
-        return DaoFactory.getDao(SummonerDaoImpl.class, databaseUrl, "riot2");
+        return DaoFactory.getDao(SummonerDaoImpl.class, databaseUrl, "riot");
     }
 
     /**
@@ -78,6 +78,6 @@ public enum MongoDaoProvider {
      * @return the queryDao
      */
     public QueryDao getQueryDao(String databaseUrl) {
-        return DaoFactory.getDao(QueryDaoImpl.class, databaseUrl, "riot2");
+        return DaoFactory.getDao(QueryDaoImpl.class, databaseUrl, "riot");
     }
 }
