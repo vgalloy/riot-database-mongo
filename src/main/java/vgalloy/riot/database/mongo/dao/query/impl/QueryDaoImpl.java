@@ -36,11 +36,10 @@ public class QueryDaoImpl implements QueryDao {
     @Override
     public Map<Integer, Double> getWinRate(int championId) {
         Map<Integer, Double> map = new HashMap<>();
-        FindIterable<Document> result = mongoDatabase.getCollection("result").find(new Document("_id.championId", championId));
-        int index = 0;
+        FindIterable<Document> result = mongoDatabase.getCollection("winRate").find(new Document("_id.championId", championId));
         for (Document o : result) {
+            Integer index = ((Document) o.get("_id")).getInteger("played");
             map.put(index, Math.floor(1000 * o.getDouble("result")) / 10);
-            index++;
         }
         return map;
     }
@@ -57,7 +56,7 @@ public class QueryDaoImpl implements QueryDao {
                 ),
                 new BasicDBObject("$project", new Document("result", new Document("$divide", new String[]{"$won", "$played"})).append("total", 1)),
                 new BasicDBObject("$sort", new Document("_id", 1)),
-                new BasicDBObject("$out", "result")
+                new BasicDBObject("$out", "winRate")
         )).iterator();
     }
 }

@@ -1,4 +1,4 @@
-use riot;
+use riot2;
 db.rankedStats.aggregate([
     {$unwind : "$rankedStatsDto.champions"},
     {$group :
