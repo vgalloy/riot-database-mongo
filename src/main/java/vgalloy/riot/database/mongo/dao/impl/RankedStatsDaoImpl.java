@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public class RankedStatsDaoImpl implements RankedStatsDao {
 
+    public static final String COLLECTION_NAME = "rankedStats";
+
     private final GenericDao<RankedStatsEntity> genericDao;
 
     /**
@@ -24,7 +26,7 @@ public class RankedStatsDaoImpl implements RankedStatsDao {
      * @param databaseName the database name
      */
     public RankedStatsDaoImpl(String databaseUrl, String databaseName) {
-        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, "rankedStats", RankedStatsEntity.class);
+        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, COLLECTION_NAME, RankedStatsEntity.class);
     }
 
     /**

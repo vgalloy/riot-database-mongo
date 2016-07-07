@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public class RecentGamesDaoImpl implements RecentGamesDao {
 
+    public static final String COLLECTION_NAME = "recentGames";
+
     private final GenericDao<RecentGamesEntity> genericDao;
 
     /**
@@ -24,7 +26,7 @@ public class RecentGamesDaoImpl implements RecentGamesDao {
      * @param databaseName the database name
      */
     public RecentGamesDaoImpl(String databaseUrl, String databaseName) {
-        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, "recentGames", RecentGamesEntity.class);
+        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, COLLECTION_NAME, RecentGamesEntity.class);
     }
 
     @Override

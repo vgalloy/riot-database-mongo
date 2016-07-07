@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public class MatchDetailDaoImpl implements MatchDetailDao {
 
+    public static final String COLLECTION_NAME = "matchDetail";
+
     private final GenericDao<MatchDetailEntity> genericDao;
 
     /**
@@ -24,7 +26,7 @@ public class MatchDetailDaoImpl implements MatchDetailDao {
      * @param databaseName the database name
      */
     public MatchDetailDaoImpl(String databaseUrl, String databaseName) {
-        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, "matchDetail", MatchDetailEntity.class);
+        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, COLLECTION_NAME, MatchDetailEntity.class);
     }
 
     @Override

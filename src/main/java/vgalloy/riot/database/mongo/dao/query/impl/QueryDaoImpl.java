@@ -7,6 +7,8 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import vgalloy.riot.database.mongo.dao.factory.MongoClientFactory;
+import vgalloy.riot.database.mongo.dao.impl.MatchDetailDaoImpl;
+import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
 import vgalloy.riot.database.mongo.dao.query.mapper.PositionMapper;
 import vgalloy.riot.database.mongo.dao.query.model.Position;
@@ -51,7 +53,7 @@ public class QueryDaoImpl implements QueryDao {
 
     @Override
     public void updateWinRate() {
-        mongoDatabase.getCollection("rankedStats").aggregate(asList(
+        mongoDatabase.getCollection(RankedStatsDaoImpl.COLLECTION_NAME).aggregate(asList(
                 new BasicDBObject("$unwind", "$item.champions"),
                 new BasicDBObject("$group",
                         new Document("_id", new Document("championId", "$item.champions.id").append("played", "$item.champions.stats.totalSessionsPlayed"))
@@ -62,7 +64,7 @@ public class QueryDaoImpl implements QueryDao {
                 new BasicDBObject("$project", new Document("result", new Document("$divide", new String[]{"$won", "$played"})).append("total", 1)),
                 new BasicDBObject("$sort", new Document("_id", 1)),
                 new BasicDBObject("$out", "winRate")
-        )).iterator(); // TODO .first ?
+        )).iterator();
     }
 
     @Override
@@ -126,7 +128,7 @@ public class QueryDaoImpl implements QueryDao {
         String reduceFunction = "function(key, values) {" +
                 "return result;" +
                 "};";
-        mongoDatabase.getCollection("matchDetail").mapReduce(mapFunction, reduceFunction)
+        mongoDatabase.getCollection(MatchDetailDaoImpl.COLLECTION_NAME).mapReduce(mapFunction, reduceFunction)
                 .collectionName("positions").first();
     }
 }

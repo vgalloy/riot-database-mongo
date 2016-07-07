@@ -15,6 +15,8 @@ import java.util.Optional;
  */
 public class SummonerDaoImpl implements SummonerDao {
 
+    public static final String COLLECTION_NAME = "summoner";
+
     private final GenericDao<SummonerEntity> genericDao;
 
     /**
@@ -24,7 +26,7 @@ public class SummonerDaoImpl implements SummonerDao {
      * @param databaseName the database name
      */
     public SummonerDaoImpl(String databaseUrl, String databaseName) {
-        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, "summoner", SummonerEntity.class);
+        genericDao = new GenericDaoImpl<>(databaseUrl, databaseName, COLLECTION_NAME, SummonerEntity.class);
     }
 
     @Override
