@@ -1,5 +1,7 @@
 package vgalloy.riot.database.mongo.entity.model;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import org.mongojack.Id;
@@ -15,7 +17,9 @@ import vgalloy.riot.database.mongo.entity.Key;
  *         Created by Vincent Galloy on 28/05/16.
  */
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.ANY)
-public class RankedStatsEntity extends Datable<RankedStatsDto> implements Identifiable {
+public class RankedStatsEntity extends Datable<RankedStatsDto> implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 7291148376476858577L;
 
     private Key key;
 

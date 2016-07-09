@@ -1,8 +1,11 @@
 package vgalloy.riot.database.mongo.entity.model;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import org.mongojack.Id;
+
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.summoner.dto.SummonerDto;
 import vgalloy.riot.database.mongo.entity.Datable;
@@ -14,7 +17,9 @@ import vgalloy.riot.database.mongo.entity.Key;
  *         Created by Vincent Galloy on 28/05/16.
  */
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.ANY)
-public class SummonerEntity extends Datable<SummonerDto> implements Identifiable {
+public class SummonerEntity extends Datable<SummonerDto> implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = 7837181910736839843L;
 
     private Key key;
 

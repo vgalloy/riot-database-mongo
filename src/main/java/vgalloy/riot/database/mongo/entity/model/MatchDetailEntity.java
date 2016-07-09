@@ -1,8 +1,11 @@
 package vgalloy.riot.database.mongo.entity.model;
 
+import java.io.Serializable;
+
 import com.fasterxml.jackson.annotation.JsonAutoDetect;
 import com.fasterxml.jackson.annotation.JsonAutoDetect.Visibility;
 import org.mongojack.Id;
+
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.mach.dto.MatchDetail;
 import vgalloy.riot.database.mongo.entity.Datable;
@@ -14,7 +17,9 @@ import vgalloy.riot.database.mongo.entity.Key;
  *         Created by Vincent Galloy on 28/05/16.
  */
 @JsonAutoDetect(fieldVisibility = Visibility.NONE, getterVisibility = Visibility.ANY, setterVisibility = Visibility.ANY)
-public class MatchDetailEntity extends Datable<MatchDetail> implements Identifiable {
+public class MatchDetailEntity extends Datable<MatchDetail> implements Identifiable, Serializable {
+
+    private static final long serialVersionUID = -5080357161459486441L;
 
     private Key key;
 
