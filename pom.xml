@@ -5,8 +5,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>vgalloy</groupId>
-    <artifactId>riot-database-mongo</artifactId>
+    <artifactId>riot-database-service</artifactId>
+    <packaging>pom</packaging>
     <version>1.6.0-SNAPSHOT</version>
+
+    <modules>
+        <module>riot-database-api</module>
+        <module>riot-database-mongo</module>
+        <module>riot-database-daemon</module>
+    </modules>
 
     <properties>
         <!-- Project -->
@@ -18,7 +25,14 @@
 
         <!-- Checkstyle -->
         <checkstyle.version>2.17</checkstyle.version>
-        <checkstyle.configuration.location>conf/checkstyle.xml</checkstyle.configuration.location>
+        <checkstyle.checkstyle.location>conf/checkstyle.xml</checkstyle.checkstyle.location>
+        <checkstyle.suppressions.location>conf/suppressions.xml</checkstyle.suppressions.location>
+
+        <!-- Modules -->
+        <module.version>1.6.0-SNAPSHOT</module.version>
+
+        <!-- Spring -->
+        <spring.version>4.3.1.RELEASE</spring.version>
 
         <!-- Log -->
         <slf4j-api.version>1.7.19</slf4j-api.version>
@@ -36,60 +50,79 @@
         <riot-api-java.version>2.5.0</riot-api-java.version>
     </properties>
 
-    <dependencies>
-        <!-- Log -->
-        <dependency>
-            <groupId>org.slf4j</groupId>
-            <artifactId>slf4j-api</artifactId>
-            <version>${slf4j-api.version}</version>
-            <scope>provided</scope>
-        </dependency>
-        <dependency>
-            <groupId>ch.qos.logback</groupId>
-            <artifactId>logback-classic</artifactId>
-            <version>${logback-classic.version}</version>
-            <scope>provided</scope>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <!-- Module -->
+            <dependency>
+                <artifactId>riot-database-api</artifactId>
+                <groupId>vgalloy</groupId>
+                <version>${module.version}</version>
+            </dependency>
+            <dependency>
+                <artifactId>riot-database-mongo</artifactId>
+                <groupId>vgalloy</groupId>
+                <version>${module.version}</version>
+            </dependency>
 
-        <dependency>
-            <groupId>de.flapdoodle.embed</groupId>
-            <artifactId>de.flapdoodle.embed.mongo</artifactId>
-            <version>${de.flapdoodle.embed.mongo.version}</version>
-        </dependency>
+            <!-- Riot project api -->
+            <dependency>
+                <groupId>vgalloy</groupId>
+                <artifactId>riot-api-java</artifactId>
+                <version>${riot-api-java.version}</version>
+                <exclusions>
+                    <exclusion>
+                        <groupId>org.glassfish.jersey.media</groupId>
+                        <artifactId>jersey-media-json-jackson</artifactId>
+                    </exclusion>
+                </exclusions>
+            </dependency>
 
-        <!-- Database api -->
-        <dependency>
-            <groupId>vgalloy</groupId>
-            <artifactId>riot-api-java</artifactId>
-            <version>${riot-api-java.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.glassfish.jersey.media</groupId>
-                    <artifactId>jersey-media-json-jackson</artifactId>
-                </exclusion>
-            </exclusions>
-        </dependency>
+            <!-- Spring -->
+            <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-context</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
 
-        <!-- Mongo -->
-        <dependency>
-            <groupId>org.mongodb</groupId>
-            <artifactId>mongo-java-driver</artifactId>
-            <version>${mongo-java-driver.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.mongojack</groupId>
-            <artifactId>mongojack</artifactId>
-            <version>${mongojack.version}</version>
-        </dependency>
+            <!-- Log -->
+            <dependency>
+                <groupId>org.slf4j</groupId>
+                <artifactId>slf4j-api</artifactId>
+                <version>${slf4j-api.version}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>ch.qos.logback</groupId>
+                <artifactId>logback-classic</artifactId>
+                <version>${logback-classic.version}</version>
+                <scope>provided</scope>
+            </dependency>
 
-        <!-- Test -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${junit.version}</version>
-        </dependency>
-    </dependencies>
+            <!-- Mongo -->
+            <dependency>
+                <groupId>org.mongodb</groupId>
+                <artifactId>mongo-java-driver</artifactId>
+                <version>${mongo-java-driver.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.mongojack</groupId>
+                <artifactId>mongojack</artifactId>
+                <version>${mongojack.version}</version>
+            </dependency>
 
+            <!-- Test -->
+            <dependency>
+                <groupId>junit</groupId>
+                <artifactId>junit</artifactId>
+                <version>${junit.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>de.flapdoodle.embed</groupId>
+                <artifactId>de.flapdoodle.embed.mongo</artifactId>
+                <version>${de.flapdoodle.embed.mongo.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
     <build>
         <plugins>
             <!-- Maven -->
@@ -109,8 +142,9 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>${checkstyle.version}</version>
                 <configuration>
-                    <configLocation>${checkstyle.configuration.location}</configLocation>
                     <encoding>${project.build.sourceEncoding}</encoding>
+                    <configLocation>${checkstyle.checkstyle.location}</configLocation>
+                    <suppressionsLocation>${checkstyle.suppressions.location}</suppressionsLocation>
                     <consoleOutput>true</consoleOutput>
                     <failsOnError>true</failsOnError>
                 </configuration>
