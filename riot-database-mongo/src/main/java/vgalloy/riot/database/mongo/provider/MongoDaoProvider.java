@@ -1,16 +1,17 @@
 package vgalloy.riot.database.mongo.provider;
 
-import vgalloy.riot.database.api.dao.MatchDetailDao;
-import vgalloy.riot.database.api.dao.MatchReferenceDao;
-import vgalloy.riot.database.api.dao.RankedStatsDao;
-import vgalloy.riot.database.api.dao.RecentGamesDao;
-import vgalloy.riot.database.api.dao.SummonerDao;
+import vgalloy.riot.api.rest.request.game.dto.RecentGamesDto;
+import vgalloy.riot.api.rest.request.mach.dto.MatchDetail;
+import vgalloy.riot.api.rest.request.matchlist.dto.MatchReference;
+import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
+import vgalloy.riot.api.rest.request.summoner.dto.SummonerDto;
+import vgalloy.riot.database.mongo.dao.commondao.CommonDao;
+import vgalloy.riot.database.mongo.dao.commondao.impl.MatchDetailDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.MatchReferenceDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.RankedStatsDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.RecentGamesDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.SummonerDaoImpl;
 import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
-import vgalloy.riot.database.mongo.dao.impl.MatchDetailDaoImpl;
-import vgalloy.riot.database.mongo.dao.impl.MatchReferenceDaoImpl;
-import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
-import vgalloy.riot.database.mongo.dao.impl.RecentGamesDaoImpl;
-import vgalloy.riot.database.mongo.dao.impl.SummonerDaoImpl;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
 import vgalloy.riot.database.mongo.dao.query.impl.QueryDaoImpl;
 
@@ -18,7 +19,7 @@ import vgalloy.riot.database.mongo.dao.query.impl.QueryDaoImpl;
  * @author Vincent Galloy
  *         Created by Vincent Galloy on 09/06/16.
  */
-public enum MongoDaoProvider { // TODO interface ?
+public enum MongoDaoProvider {
     INSTANCE;
 
     /**
@@ -27,7 +28,7 @@ public enum MongoDaoProvider { // TODO interface ?
      * @param databaseUrl the database url
      * @return the matchDetailDao
      */
-    public MatchDetailDao getMatchDetailDao(String databaseUrl) {
+    public CommonDao<MatchDetail> getMatchDetailDao(String databaseUrl) {
         return DaoFactory.getDao(MatchDetailDaoImpl.class, databaseUrl, "riot");
     }
 
@@ -37,7 +38,7 @@ public enum MongoDaoProvider { // TODO interface ?
      * @param databaseUrl the database url
      * @return the matchReferenceDao
      */
-    public MatchReferenceDao getMatchReferenceDao(String databaseUrl) {
+    public CommonDao<MatchReference> getMatchReferenceDao(String databaseUrl) {
         return DaoFactory.getDao(MatchReferenceDaoImpl.class, databaseUrl, "riot");
     }
 
@@ -47,7 +48,7 @@ public enum MongoDaoProvider { // TODO interface ?
      * @param databaseUrl the database url
      * @return the rankedStatsDao
      */
-    public RankedStatsDao getRankedStatsDao(String databaseUrl) {
+    public CommonDao<RankedStatsDto> getRankedStatsDao(String databaseUrl) {
         return DaoFactory.getDao(RankedStatsDaoImpl.class, databaseUrl, "riot");
     }
 
@@ -57,7 +58,7 @@ public enum MongoDaoProvider { // TODO interface ?
      * @param databaseUrl the database url
      * @return the RecentGamesDao
      */
-    public RecentGamesDao getRecentGamesDao(String databaseUrl) {
+    public CommonDao<RecentGamesDto> getRecentGamesDao(String databaseUrl) {
         return DaoFactory.getDao(RecentGamesDaoImpl.class, databaseUrl, "riot");
     }
 
@@ -67,7 +68,7 @@ public enum MongoDaoProvider { // TODO interface ?
      * @param databaseUrl the database url
      * @return the SummonerDao
      */
-    public SummonerDao getSummonerDao(String databaseUrl) {
+    public CommonDao<SummonerDto> getSummonerDao(String databaseUrl) {
         return DaoFactory.getDao(SummonerDaoImpl.class, databaseUrl, "riot");
     }
 

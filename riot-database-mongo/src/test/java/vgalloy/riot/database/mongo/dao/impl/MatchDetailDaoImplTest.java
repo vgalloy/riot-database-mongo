@@ -1,7 +1,6 @@
 package vgalloy.riot.database.mongo.dao.impl;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
@@ -16,12 +15,12 @@ import org.junit.Test;
 
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.mach.dto.MatchDetail;
-import vgalloy.riot.database.api.dao.MatchDetailDao;
 import vgalloy.riot.database.api.entity.Entity;
+import vgalloy.riot.database.mongo.dao.commondao.impl.MatchDetailDaoImpl;
 import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
 
 /**
  * @author Vincent Galloy
@@ -35,7 +34,7 @@ public class MatchDetailDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final MatchDetailDao matchDetailDao = DaoFactory.getDao(MatchDetailDaoImpl.class, URL + ":" + PORT, "riotTest");
+    private final MatchDetailDaoImpl matchDetailService = DaoFactory.getDao(MatchDetailDaoImpl.class, URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {
@@ -54,12 +53,12 @@ public class MatchDetailDaoImplTest {
         matchDetail.setMatchId(10);
 
         // WHEN
-        matchDetailDao.save(Region.euw, 10L, matchDetail);
-        Optional<Entity<MatchDetail>> result = matchDetailDao.get(Region.euw, 10L);
+        matchDetailService.save(Region.euw, 10L, matchDetail);
+        Entity<MatchDetail> result = matchDetailService.get(Region.euw, 10L);
 
         // THEN
-        assertTrue(result.isPresent());
-        assertEquals(matchDetail, result.get().getItem());
+        assertNotNull(result);
+        assertEquals(matchDetail, result.getItem());
     }
 
     @AfterClass

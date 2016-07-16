@@ -33,6 +33,7 @@
 
         <!-- Spring -->
         <spring.version>4.3.1.RELEASE</spring.version>
+        <spring-boot.version>1.3.6.RELEASE</spring-boot.version>
 
         <!-- Log -->
         <slf4j-api.version>1.7.19</slf4j-api.version>
@@ -56,7 +57,7 @@
             <dependency>
                 <artifactId>riot-database-api</artifactId>
                 <groupId>vgalloy</groupId>
-                <version>${module.version}</version>
+                <version>1.0.0-SNAPSHOT</version>
             </dependency>
             <dependency>
                 <artifactId>riot-database-mongo</artifactId>
@@ -83,19 +84,22 @@
                 <artifactId>spring-context</artifactId>
                 <version>${spring.version}</version>
             </dependency>
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-web</artifactId>
+                <version>${spring-boot.version}</version>
+            </dependency>
 
             <!-- Log -->
             <dependency>
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j-api.version}</version>
-                <scope>provided</scope>
             </dependency>
             <dependency>
                 <groupId>ch.qos.logback</groupId>
                 <artifactId>logback-classic</artifactId>
                 <version>${logback-classic.version}</version>
-                <scope>provided</scope>
             </dependency>
 
             <!-- Mongo -->
@@ -112,6 +116,11 @@
 
             <!-- Test -->
             <dependency>
+                <groupId>org.springframework</groupId>
+                <artifactId>spring-test</artifactId>
+                <version>${spring.version}</version>
+            </dependency>
+            <dependency>
                 <groupId>junit</groupId>
                 <artifactId>junit</artifactId>
                 <version>${junit.version}</version>
@@ -120,6 +129,7 @@
                 <groupId>de.flapdoodle.embed</groupId>
                 <artifactId>de.flapdoodle.embed.mongo</artifactId>
                 <version>${de.flapdoodle.embed.mongo.version}</version>
+                <scope>test</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>

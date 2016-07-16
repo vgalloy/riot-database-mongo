@@ -2,7 +2,6 @@ package vgalloy.riot.database.mongo.dao.impl;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Optional;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
@@ -18,16 +17,17 @@ import org.junit.Test;
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.stats.dto.ChampionStatsDto;
 import vgalloy.riot.api.rest.request.stats.dto.RankedStatsDto;
-import vgalloy.riot.database.api.dao.RankedStatsDao;
 import vgalloy.riot.database.api.entity.Entity;
+import vgalloy.riot.database.mongo.dao.commondao.impl.GenericDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.RankedStatsDaoImpl;
 import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.exception.MongoDaoException;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertSame;
-import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 /**
@@ -42,7 +42,7 @@ public class RankedStatsDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final RankedStatsDao rankedStatsDao = DaoFactory.getDao(RankedStatsDaoImpl.class, URL + ":" + PORT, "riotTest");
+    private final RankedStatsDaoImpl rankedStatsDao = DaoFactory.getDao(RankedStatsDaoImpl.class, URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {
@@ -67,8 +67,8 @@ public class RankedStatsDaoImplTest {
 
     @Test
     public void testEmptyDatabase() {
-        Optional<Entity<RankedStatsDto>> rankedStatsEntity = rankedStatsDao.get(Region.br, 1L);
-        assertFalse(rankedStatsEntity.isPresent());
+        Entity<RankedStatsDto> rankedStatsEntity = rankedStatsDao.get(Region.br, 1L);
+        assertNull(rankedStatsEntity);
     }
 
     @Test
@@ -84,8 +84,8 @@ public class RankedStatsDaoImplTest {
 
     @Test
     public void testEmptyRandom() {
-        Optional<Entity<RankedStatsDto>> rankedStatsEntity = rankedStatsDao.getRandom(Region.kr);
-        assertFalse(rankedStatsEntity.isPresent());
+        Entity<RankedStatsDto> rankedStatsEntity = rankedStatsDao.getRandom(Region.kr);
+        assertNull(rankedStatsEntity);
     }
 
     @Test
@@ -119,11 +119,11 @@ public class RankedStatsDaoImplTest {
 
         // WHEN
         rankedStatsDao.save(Region.euw, 10L, rankedStatsDto);
-        Optional<Entity<RankedStatsDto>> result = rankedStatsDao.get(Region.euw, 10L);
+        Entity<RankedStatsDto> result = rankedStatsDao.get(Region.euw, 10L);
 
         // THEN
-        assertTrue(result.isPresent());
-        assertEquals(rankedStatsDto, result.get().getItem());
+        assertNotNull(result);
+        assertEquals(rankedStatsDto, result.getItem());
     }
 
     @Test
@@ -134,10 +134,10 @@ public class RankedStatsDaoImplTest {
 
         // WHEN
         rankedStatsDao.save(Region.euw, 11L, rankedStatsDto);
-        Optional<Entity<RankedStatsDto>> result = rankedStatsDao.getRandom(Region.euw);
+        Entity<RankedStatsDto> result = rankedStatsDao.getRandom(Region.euw);
 
         // THEN
-        assertTrue(result.isPresent());
+        assertNotNull(result);
     }
 
     @Test
@@ -152,12 +152,12 @@ public class RankedStatsDaoImplTest {
 
         // WHEN
         rankedStatsDao.save(Region.euw, 12L, rankedStatsDto);
-        Optional<Entity<RankedStatsDto>> result = rankedStatsDao.get(Region.euw, 12L);
+        Entity<RankedStatsDto> result = rankedStatsDao.get(Region.euw, 12L);
 
         // THEN
-        assertTrue(result.isPresent());
-        System.out.printf(result.get().toString());
-        assertEquals(rankedStatsDto, result.get().getItem());
+        assertNotNull(result);
+        System.out.printf(result.toString());
+        assertEquals(rankedStatsDto, result.getItem());
     }
 
     @AfterClass

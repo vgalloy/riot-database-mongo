@@ -7,11 +7,11 @@ import com.mongodb.client.FindIterable;
 import com.mongodb.client.MongoDatabase;
 import org.bson.Document;
 import vgalloy.riot.database.mongo.dao.factory.MongoClientFactory;
-import vgalloy.riot.database.mongo.dao.impl.MatchDetailDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.MatchDetailDaoImpl;
 import vgalloy.riot.database.mongo.dao.query.QueryDao;
 import vgalloy.riot.database.mongo.dao.query.mapper.PositionMapper;
 import vgalloy.riot.database.mongo.dao.query.model.Position;
-import vgalloy.riot.database.mongo.dao.impl.RankedStatsDaoImpl;
+import vgalloy.riot.database.mongo.dao.commondao.impl.RankedStatsDaoImpl;
 
 import java.util.ArrayList;
 import java.util.HashMap;

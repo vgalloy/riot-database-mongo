@@ -1,13 +1,13 @@
-package vgalloy.riot.database.mongo.dao.impl;
+package vgalloy.riot.database.mongo.dao.commondao.impl;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.ParameterizedType;
 import java.util.Optional;
 
 import vgalloy.riot.api.rest.constant.Region;
-import vgalloy.riot.database.api.dao.CommonDao;
 import vgalloy.riot.database.api.entity.Entity;
-import vgalloy.riot.database.mongo.dao.GenericDao;
+import vgalloy.riot.database.mongo.dao.commondao.CommonDao;
+import vgalloy.riot.database.mongo.dao.commondao.GenericDao;
 import vgalloy.riot.database.mongo.entity.Key;
 import vgalloy.riot.database.mongo.entity.dataobject.DataObject;
 import vgalloy.riot.database.mongo.entity.mapper.DataObjectMapper;
@@ -24,7 +24,7 @@ public abstract class AbstractCommonDao<DTO, DATA_OBJECT extends DataObject<DTO>
     /**
      * Constructor.
      *
-     * @param genericDao the generic dao
+     * @param genericDao the generic service
      */
     /*package protected*/ AbstractCommonDao(GenericDao<DTO, DATA_OBJECT> genericDao) {
         this.genericDao = genericDao;
@@ -43,21 +43,21 @@ public abstract class AbstractCommonDao<DTO, DATA_OBJECT extends DataObject<DTO>
     }
 
     @Override
-    public Optional<Entity<DTO>> get(Region region, Long summonerId) {
+    public Entity<DTO> get(Region region, Long summonerId) {
         Key key = new Key(region, summonerId);
         Optional<DATA_OBJECT> dataObject = genericDao.getById(key.normalizeString());
         if (dataObject.isPresent()) {
-            return Optional.of(DataObjectMapper.map(dataObject.get()));
+            return DataObjectMapper.map(dataObject.get());
         }
-        return Optional.empty();
+        return null;
     }
 
     @Override
-    public Optional<Entity<DTO>> getRandom(Region region) {
+    public Entity<DTO> getRandom(Region region) {
         Optional<DATA_OBJECT> dataObject = genericDao.getRandom(region);
         if (dataObject.isPresent()) {
-            return Optional.of(DataObjectMapper.map(dataObject.get()));
+            return DataObjectMapper.map(dataObject.get());
         }
-        return Optional.empty();
+        return null;
     }
 }

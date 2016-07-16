@@ -1,7 +1,6 @@
 package vgalloy.riot.database.mongo.dao.impl;
 
 import java.io.IOException;
-import java.util.Optional;
 
 import de.flapdoodle.embed.mongo.MongodExecutable;
 import de.flapdoodle.embed.mongo.MongodProcess;
@@ -16,13 +15,13 @@ import org.junit.Test;
 
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.api.rest.request.summoner.dto.SummonerDto;
-import vgalloy.riot.database.api.dao.SummonerDao;
 import vgalloy.riot.database.api.entity.Entity;
+import vgalloy.riot.database.mongo.dao.commondao.impl.SummonerDaoImpl;
 import vgalloy.riot.database.mongo.dao.factory.DaoFactory;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Vincent Galloy
@@ -36,7 +35,7 @@ public class SummonerDaoImplTest {
     private static MongodProcess PROCESS;
     private static MongodExecutable EXECUTABLE;
 
-    private final SummonerDao summonerDao = DaoFactory.getDao(SummonerDaoImpl.class, URL + ":" + PORT, "riotTest");
+    private final SummonerDaoImpl summonerDao = DaoFactory.getDao(SummonerDaoImpl.class, URL + ":" + PORT, "riotTest");
 
     @BeforeClass
     public static void setUp() throws IOException {
@@ -51,10 +50,10 @@ public class SummonerDaoImplTest {
     @Test
     public void testRandomFalse() {
         // WHEN
-        Optional<Entity<SummonerDto>> result = summonerDao.getRandom(Region.br);
+        Entity<SummonerDto> result = summonerDao.getRandom(Region.br);
 
         // THEN
-        assertFalse(result.isPresent());
+        assertNull(result);
     }
 
     @Test
@@ -65,11 +64,11 @@ public class SummonerDaoImplTest {
         summonerDao.save(Region.euw, 2L, summoner);
 
         // WHEN
-        Optional<Entity<SummonerDto>> result = summonerDao.getRandom(Region.euw);
+        Entity<SummonerDto> result = summonerDao.getRandom(Region.euw);
 
         // THEN
-        assertTrue(result.isPresent());
-        assertEquals(summoner, result.get().getItem());
+        assertNotNull(result);
+        assertEquals(summoner, result.getItem());
     }
 
     @AfterClass

@@ -1,9 +1,9 @@
-package vgalloy.riot.database.mongo.dao;
+package vgalloy.riot.database.mongo.dao.commondao;
+
+import java.util.Optional;
 
 import vgalloy.riot.api.rest.constant.Region;
 import vgalloy.riot.database.mongo.entity.dataobject.DataObject;
-
-import java.util.Optional;
 
 /**
  * @author Vincent Galloy

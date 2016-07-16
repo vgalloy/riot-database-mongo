@@ -1,14 +1,13 @@
-package vgalloy.riot.database.mongo.dao.impl;
+package vgalloy.riot.database.mongo.dao.commondao.impl;
 
 import vgalloy.riot.api.rest.request.game.dto.RecentGamesDto;
-import vgalloy.riot.database.api.dao.RecentGamesDao;
 import vgalloy.riot.database.mongo.entity.dataobject.RecentGamesDo;
 
 /**
  * @author Vincent Galloy
  *         Created by Vincent Galloy on 28/05/16.
  */
-public class RecentGamesDaoImpl extends AbstractCommonDao<RecentGamesDto, RecentGamesDo> implements RecentGamesDao {
+public class RecentGamesDaoImpl extends AbstractCommonDao<RecentGamesDto, RecentGamesDo> {
 
     public static final String COLLECTION_NAME = "recentGames";
 
