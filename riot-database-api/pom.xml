@@ -17,6 +17,14 @@
             <groupId>vgalloy</groupId>
             <artifactId>riot-api-java</artifactId>
         </dependency>
+        <dependency>
+            <groupId>vgalloy</groupId>
+            <artifactId>java-over-rabbitmq</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
     </dependencies>
 
 </project>
